@@ -1,5 +1,6 @@
 {% from "telegraf/map.jinja" import telegraf with context %}
 
+{% if telegraf.install %}
 telegraf-pkg:
   file.managed:
     - name: /tmp/telegraf_{{ telegraf.version }}{{ telegraf.pkgsuffix }}
@@ -15,3 +16,4 @@ telegraf-install:
       - file: telegraf-pkg
     - watch:
       - file: telegraf-pkg
+{% endif %}

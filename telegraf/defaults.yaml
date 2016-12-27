@@ -1,5 +1,6 @@
 telegraf:
   version: 0.13.2
+  install: False
   indent: 2
   use_system_inputs: True
   agent:
