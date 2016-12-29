@@ -1,19 +1,20 @@
 telegraf:
-  version: 0.13.2
+  version: 1.1.2
   install: False
   indent: 2
   use_system_inputs: True
   agent:
-    hostname: ""
     interval: 10s
     round_interval: "true"
+    metric_batch_size: 1000
     metric_buffer_limit: 10000
-    flush_buffer_when_full: "true"
     collection_jitter: 0s
     flush_interval: 10s
     flush_jitter: 0s
     debug: "false"
     quiet: "false"
+    hostname: ""
+    omit_hotname: "false"
   outputs:
     -
       plugin_name: influxdb
@@ -21,3 +22,5 @@ telegraf:
         - http://localhost:8086
       database: telegraf
       precision: s
+      write_consistency: any
+      timeout: 5s
