@@ -12,7 +12,7 @@ telegraf:
     debug: "false"
     quiet: "false"
     hostname: ""
-    omit_hotname: "false"
+    omit_hostname: "false"
   outputs:
     -
       plugin_name: influxdb
