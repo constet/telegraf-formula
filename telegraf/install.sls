@@ -1,19 +1,15 @@
 {% from "telegraf/map.jinja" import telegraf with context %}
 
-{% if telegraf.install %}
-telegraf-pkg:
+telegraf-repo:
   file.managed:
-    - name: /tmp/telegraf_{{ telegraf.version }}{{ telegraf.pkgsuffix }}
-    - source: {{ telegraf.source_url }}{{ telegraf.version }}{{ telegraf.pkgsuffix }}
-    - source_hash: md5={{ telegraf.source_hash }}
-    - unless: test -f /tmp/telegraf_{{ telegraf.version }}{{ telegraf.pkgsuffix }}
+    - name: {{ telegraf.repo_target }}/influxdata.repo
+    - source: salt://telegraf/files/{{ telegraf.repo_file }}
+    - user: root
+    - group: root
+    - mode: 644
 
 telegraf-install:
   pkg.installed:
-    - sources:
-      - telegraf: /tmp/telegraf_{{ telegraf.version }}{{ telegraf.pkgsuffix }}
+    - name: {{ telegraf.pkg_name }}
     - require:
-      - file: telegraf-pkg
-    - watch:
-      - file: telegraf-pkg
-{% endif %}
+      - file: telegraf-repo
