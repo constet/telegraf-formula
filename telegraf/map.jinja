@@ -59,6 +59,13 @@
             {{- output_indented(col, (k + ' = "' + v|string + '"')) }}
           {%- endfor -%}
         {%- set col = col - telegraf.indent %}
+      {%- elif key == "options" %}
+        {{- output_indented(col, ("[" + plugin_type + "." + plugin.plugin_name + ".options]")) }}
+        {%- set col = col + telegraf.indent %}
+          {%- for k, v in value.items() %}
+            {{- output_indented(col, (k + ' = "' + v|string + '"')) }}
+          {%- endfor -%}
+        {%- set col = col - telegraf.indent %}
       {%- else %}
         {{- output_indented(col, key + ' = [') -}}
         {%- for item in value -%}
